@@ -1,0 +1,23 @@
+{
+  "name": "graphql-module-driven-architecture",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsx scripts/build.ts",
+    "start": "node dist/main.js",
+    "dev": "tsx watch src/main.ts",
+    "tsc": "tsc --noEmit"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@tsconfig/node-lts-strictest-esm": "18.12.1",
+    "@types/node": "20.1.7",
+    "esbuild": "0.17.19",
+    "tsx": "3.12.7",
+    "typescript": "5.0.4"
+  },
+  "packageManager": "pnpm@8.5.1"
+}
