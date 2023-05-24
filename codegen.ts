@@ -16,6 +16,9 @@ const config: CodegenConfig = {
       plugins: ['typescript', 'typescript-resolvers'],
       config: {
         useTypeImports: true,
+        scalars: {
+          EmailAddress: 'string',
+        },
       },
     },
   },

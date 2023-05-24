@@ -3,6 +3,8 @@ input CreateUserInput {
   name: String!
 }
 
+scalar EmailAddress
+
 type Mutation {
   createUser(input: CreateUserInput!): User!
 }
@@ -21,7 +23,7 @@ type Query {
 }
 
 type User {
-  email: String!
+  email: EmailAddress!
   id: ID!
   name: String!
   posts: [Post!]!

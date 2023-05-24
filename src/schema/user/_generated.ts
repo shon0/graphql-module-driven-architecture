@@ -11,6 +11,7 @@ export namespace UserModule {
   };
   
   export type User = Pick<Types.User, DefinedFields['User']>;
+  export type EmailAddress = Types.EmailAddress;
   export type Post = Types.Post;
   export type Query = Pick<Types.Query, DefinedFields['Query']>;
   export type CreateUserInput = Pick<Types.CreateUserInput, DefinedInputFields['CreateUserInput']>;
