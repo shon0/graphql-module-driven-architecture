@@ -2,23 +2,26 @@
   "name": "graphql-module-driven-architecture",
   "version": "1.0.0",
   "description": "",
+  "license": "ISC",
+  "author": "",
   "type": "module",
   "main": "index.js",
   "scripts": {
     "build": "tsx scripts/build.ts",
-    "start": "node dist/server.js",
     "dev": "tsx watch src/server.ts",
-    "tsc": "tsc --noEmit",
-    "gen:gql": "graphql-codegen"
+    "gen:gql": "graphql-codegen",
+    "start": "node dist/server.js",
+    "tsc": "tsc --noEmit"
   },
-  "author": "",
-  "license": "ISC",
   "dependencies": {
+    "@prisma/client": "4.14.1",
     "graphql": "16.6.0",
     "graphql-scalars": "1.22.0",
-    "graphql-yoga": "3.9.1"
+    "graphql-yoga": "3.9.1",
+    "prisma": "4.14.1"
   },
   "devDependencies": {
+    "@graphql-codegen/add": "5.0.0",
     "@graphql-codegen/cli": "3.3.1",
     "@graphql-codegen/graphql-modules-preset": "3.1.3",
     "@graphql-codegen/schema-ast": "3.0.1",
@@ -30,5 +33,8 @@
     "tsx": "3.12.7",
     "typescript": "5.0.4"
   },
-  "packageManager": "pnpm@8.5.1"
+  "packageManager": "pnpm@8.5.1",
+  "prisma": {
+    "seed": "tsx prisma/seed.ts"
+  }
 }

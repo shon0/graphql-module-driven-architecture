@@ -1,42 +1,26 @@
+import { prisma } from '~/lib/prisma'
 import type { UserModule } from './_generated'
 
 export const resolvers: UserModule.Resolvers = {
   Query: {
-    users() {
-      return [
-        {
-          id: '1',
-          name: 'John Doe',
-          email: 'john.doe@example.com',
-          posts: [],
-        },
-      ]
+    users: () => {
+      return prisma.user.findMany()
     },
-    user(_, { id }) {
-      return {
-        id,
-        name: 'John Doe',
-        email: 'john.doe@example.com',
-        posts: [],
-      }
+    user: (_, { id }) => {
+      return prisma.user.findUnique({ where: { id } })
     },
   },
   Mutation: {
-    createUser(_, { input }) {
-      return { id: '1', ...input, posts: [] }
+    createUser: (_, { input }) => {
+      return prisma.user.create({ data: input })
     },
   },
   User: {
-    posts(parent) {
-      return [
-        {
-          id: '1',
-          author: parent,
-          title: 'Hello world!',
-          content: 'Hello world!',
-          published: true,
-        },
-      ]
+    id: (parent) => parent.id,
+    name: (parent) => parent.name,
+    email: (parent) => parent.email,
+    posts: (parent) => {
+      return prisma.user.findUniqueOrThrow({ where: { id: parent.id } }).posts()
     },
   },
 }

@@ -1,3 +1,11 @@
+/*
+* -------------------------------------------------------
+* THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+* -------------------------------------------------------
+*/
+
+/* eslint-disable */
+
 import type * as Types from "../_generated";
 export namespace UserModule {
   interface DefinedFields {
@@ -18,12 +26,12 @@ export namespace UserModule {
   export type Mutation = Pick<Types.Mutation, DefinedFields['Mutation']>;
   
   export type UserResolvers = Pick<Types.UserResolvers, DefinedFields['User'] | '__isTypeOf'>;
-  export type QueryResolvers = Pick<Types.QueryResolvers, DefinedFields['Query']>;
-  export type MutationResolvers = Pick<Types.MutationResolvers, DefinedFields['Mutation']>;
+  export type QueryResolvers = Required<Pick<Types.QueryResolvers, DefinedFields['Query']>>;
+  export type MutationResolvers = Required<Pick<Types.MutationResolvers, DefinedFields['Mutation']>>;
   
   export interface Resolvers {
     User?: UserResolvers;
-    Query?: QueryResolvers;
-    Mutation?: MutationResolvers;
+    Query: QueryResolvers;
+    Mutation: MutationResolvers;
   };
 }

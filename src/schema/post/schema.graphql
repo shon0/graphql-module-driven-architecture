@@ -5,3 +5,27 @@ type Post {
   published: Boolean!
   author: User!
 }
+
+type Query {
+  posts: [Post!]!
+  post(id: ID!): Post
+}
+
+input CreatePostInput {
+  userId: ID!
+  title: String!
+  content: String!
+  published: Boolean
+}
+
+input UpdatePostInput {
+  postId: ID!
+  title: String
+  content: String
+  published: Boolean
+}
+
+type Mutation {
+  createPost(input: CreatePostInput!): Post!
+  updatePost(input: UpdatePostInput!): Post!
+}

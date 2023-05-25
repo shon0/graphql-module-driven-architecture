@@ -1,6 +1,6 @@
 type User {
   id: ID!
-  name: String!
+  name: String
   email: EmailAddress!
   posts: [Post!]!
 }
@@ -11,7 +11,7 @@ type Query {
 }
 
 input CreateUserInput {
-  name: String!
+  name: String
   email: String!
 }
 
