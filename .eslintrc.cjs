@@ -9,5 +9,19 @@ module.exports = {
   plugins: ['@typescript-eslint'],
   env: { node: true },
   rules: {},
-  ignorePatterns: ['*.config.js', "**/*.graphql"],
+  overrides: [
+    {
+      files: ['src/schema/**/*.graphql'],
+      extends: ['plugin:@graphql-eslint/schema-recommended'],
+      parserOptions: {
+        schema: 'src/schema/**/*.graphql',
+      },
+      rules: {
+        '@graphql-eslint/require-description': 'off',
+        '@graphql-eslint/strict-id-in-types': 'off',
+        '@graphql-eslint/input-name': 'error',
+      },
+    },
+  ],
+  ignorePatterns: ['src/schema.graphql'],
 }

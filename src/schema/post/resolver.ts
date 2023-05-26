@@ -12,22 +12,26 @@ export const resolvers: PostModule.Resolvers = {
   },
   Mutation: {
     createPost: (_, { input: { title, content, userId } }) => {
-      return prisma.post.create({
-        data: {
-          title,
-          content,
-          authorId: userId,
-        },
-      })
+      return {
+        post: prisma.post.create({
+          data: {
+            title,
+            content,
+            authorId: userId,
+          },
+        }),
+      }
     },
     updatePost: (_, { input: { postId, title, content } }) => {
-      return prisma.post.update({
-        where: { id: postId },
-        data: {
-          title: title ?? undefined,
-          content: content ?? undefined,
-        },
-      })
+      return {
+        post: prisma.post.update({
+          where: { id: postId },
+          data: {
+            title: title ?? undefined,
+            content: content ?? undefined,
+          },
+        }),
+      }
     },
   },
   Post: {

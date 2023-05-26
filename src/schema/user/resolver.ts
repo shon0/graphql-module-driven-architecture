@@ -12,7 +12,7 @@ export const resolvers: UserModule.Resolvers = {
   },
   Mutation: {
     createUser: (_, { input }) => {
-      return prisma.user.create({ data: input })
+      return { user: prisma.user.create({ data: input }) }
     },
   },
   User: {

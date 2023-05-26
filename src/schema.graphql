@@ -5,17 +5,25 @@ input CreatePostInput {
   userId: ID!
 }
 
+type CreatePostPayload {
+  post: Post!
+}
+
 input CreateUserInput {
   email: String!
   name: String
 }
 
+type CreateUserPayload {
+  user: User!
+}
+
 scalar EmailAddress
 
 type Mutation {
-  createPost(input: CreatePostInput!): Post!
-  createUser(input: CreateUserInput!): User!
-  updatePost(input: UpdatePostInput!): Post!
+  createPost(input: CreatePostInput!): CreatePostPayload!
+  createUser(input: CreateUserInput!): CreateUserPayload!
+  updatePost(input: UpdatePostInput!): UpdatePostPayload!
 }
 
 type Post {
@@ -38,6 +46,10 @@ input UpdatePostInput {
   postId: ID!
   published: Boolean
   title: String
+}
+
+type UpdatePostPayload {
+  post: Post!
 }
 
 type User {

@@ -15,6 +15,10 @@ input CreateUserInput {
   email: String!
 }
 
+type CreateUserPayload {
+  user: User!
+}
+
 type Mutation {
-  createUser(input: CreateUserInput!): User!
+  createUser(input: CreateUserInput!): CreateUserPayload!
 }

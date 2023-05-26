@@ -25,7 +25,15 @@ input UpdatePostInput {
   published: Boolean
 }
 
+type CreatePostPayload {
+  post: Post!
+}
+
+type UpdatePostPayload {
+  post: Post!
+}
+
 type Mutation {
-  createPost(input: CreatePostInput!): Post!
-  updatePost(input: UpdatePostInput!): Post!
+  createPost(input: CreatePostInput!): CreatePostPayload!
+  updatePost(input: UpdatePostInput!): UpdatePostPayload!
 }

@@ -13,6 +13,7 @@ export type InputMaybe<T> = Maybe<T>
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] }
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> }
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> }
+export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
 export type RequireFields<T, K extends keyof T> = Omit<T, K> & { [P in K]-?: NonNullable<T[P]> }
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
@@ -31,16 +32,26 @@ export type CreatePostInput = {
   readonly userId: Scalars['ID']
 }
 
+export type CreatePostPayload = {
+  readonly __typename?: 'CreatePostPayload'
+  readonly post: Post
+}
+
 export type CreateUserInput = {
   readonly email: Scalars['String']
   readonly name: InputMaybe<Scalars['String']>
 }
 
+export type CreateUserPayload = {
+  readonly __typename?: 'CreateUserPayload'
+  readonly user: User
+}
+
 export type Mutation = {
   readonly __typename?: 'Mutation'
-  readonly createPost: Post
-  readonly createUser: User
-  readonly updatePost: Post
+  readonly createPost: CreatePostPayload
+  readonly createUser: CreateUserPayload
+  readonly updatePost: UpdatePostPayload
 }
 
 export type MutationCreatePostArgs = {
@@ -85,6 +96,11 @@ export type UpdatePostInput = {
   readonly postId: Scalars['ID']
   readonly published: InputMaybe<Scalars['Boolean']>
   readonly title: InputMaybe<Scalars['String']>
+}
+
+export type UpdatePostPayload = {
+  readonly __typename?: 'UpdatePostPayload'
+  readonly post: Post
 }
 
 export type User = {
@@ -181,7 +197,13 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 export type ResolversTypes = {
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>
   CreatePostInput: CreatePostInput
+  CreatePostPayload: ResolverTypeWrapper<
+    Omit<CreatePostPayload, 'post'> & { post: ResolversTypes['Post'] }
+  >
   CreateUserInput: CreateUserInput
+  CreateUserPayload: ResolverTypeWrapper<
+    Omit<CreateUserPayload, 'user'> & { user: ResolversTypes['User'] }
+  >
   EmailAddress: ResolverTypeWrapper<Scalars['EmailAddress']>
   ID: ResolverTypeWrapper<Scalars['ID']>
   Mutation: ResolverTypeWrapper<{}>
@@ -189,6 +211,9 @@ export type ResolversTypes = {
   Query: ResolverTypeWrapper<{}>
   String: ResolverTypeWrapper<Scalars['String']>
   UpdatePostInput: UpdatePostInput
+  UpdatePostPayload: ResolverTypeWrapper<
+    Omit<UpdatePostPayload, 'post'> & { post: ResolversTypes['Post'] }
+  >
   User: ResolverTypeWrapper<UserModel>
 }
 
@@ -196,7 +221,9 @@ export type ResolversTypes = {
 export type ResolversParentTypes = {
   Boolean: Scalars['Boolean']
   CreatePostInput: CreatePostInput
+  CreatePostPayload: Omit<CreatePostPayload, 'post'> & { post: ResolversParentTypes['Post'] }
   CreateUserInput: CreateUserInput
+  CreateUserPayload: Omit<CreateUserPayload, 'user'> & { user: ResolversParentTypes['User'] }
   EmailAddress: Scalars['EmailAddress']
   ID: Scalars['ID']
   Mutation: {}
@@ -204,7 +231,24 @@ export type ResolversParentTypes = {
   Query: {}
   String: Scalars['String']
   UpdatePostInput: UpdatePostInput
+  UpdatePostPayload: Omit<UpdatePostPayload, 'post'> & { post: ResolversParentTypes['Post'] }
   User: UserModel
+}
+
+export type CreatePostPayloadResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['CreatePostPayload'] = ResolversParentTypes['CreatePostPayload'],
+> = {
+  post: Resolver<ResolversTypes['Post'], ParentType, ContextType>
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>
+}
+
+export type CreateUserPayloadResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['CreateUserPayload'] = ResolversParentTypes['CreateUserPayload'],
+> = {
+  user: Resolver<ResolversTypes['User'], ParentType, ContextType>
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>
 }
 
 export interface EmailAddressScalarConfig
@@ -217,19 +261,19 @@ export type MutationResolvers<
   ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation'],
 > = {
   createPost: Resolver<
-    ResolversTypes['Post'],
+    ResolversTypes['CreatePostPayload'],
     ParentType,
     ContextType,
     RequireFields<MutationCreatePostArgs, 'input'>
   >
   createUser: Resolver<
-    ResolversTypes['User'],
+    ResolversTypes['CreateUserPayload'],
     ParentType,
     ContextType,
     RequireFields<MutationCreateUserArgs, 'input'>
   >
   updatePost: Resolver<
-    ResolversTypes['Post'],
+    ResolversTypes['UpdatePostPayload'],
     ParentType,
     ContextType,
     RequireFields<MutationUpdatePostArgs, 'input'>
@@ -268,6 +312,14 @@ export type QueryResolvers<
   users: Resolver<ReadonlyArray<ResolversTypes['User']>, ParentType, ContextType>
 }
 
+export type UpdatePostPayloadResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['UpdatePostPayload'] = ResolversParentTypes['UpdatePostPayload'],
+> = {
+  post: Resolver<ResolversTypes['Post'], ParentType, ContextType>
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>
+}
+
 export type UserResolvers<
   ContextType = any,
   ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User'],
@@ -280,10 +332,13 @@ export type UserResolvers<
 }
 
 export type Resolvers<ContextType = any> = {
+  CreatePostPayload: CreatePostPayloadResolvers<ContextType>
+  CreateUserPayload: CreateUserPayloadResolvers<ContextType>
   EmailAddress: GraphQLScalarType
   Mutation: MutationResolvers<ContextType>
   Post: PostResolvers<ContextType>
   Query: QueryResolvers<ContextType>
+  UpdatePostPayload: UpdatePostPayloadResolvers<ContextType>
   User: UserResolvers<ContextType>
 }
 
