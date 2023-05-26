@@ -6,6 +6,7 @@
       "~/*": ["src/*"]
     },
     "moduleResolution": "bundler",
-    "exactOptionalPropertyTypes": false,
+    "exactOptionalPropertyTypes": false
   },
+  "include": ["src/**/*", "scripts/**/*", "prisma/**/*"]
 }

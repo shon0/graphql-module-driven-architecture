@@ -31,14 +31,12 @@ export const resolvers: PostModule.Resolvers = {
     },
   },
   Post: {
-    id: (parent) => parent.id,
-    title: (parent) => parent.title,
-    content: (parent) => parent.content,
-    published: (parent) => parent.published,
-    author: (parent) => {
-      return prisma.post
-        .findUniqueOrThrow({ where: { id: parent.id } })
-        .author()
+    id: parent => parent.id,
+    title: parent => parent.title,
+    content: parent => parent.content,
+    published: parent => parent.published,
+    author: parent => {
+      return prisma.post.findUniqueOrThrow({ where: { id: parent.id } }).author()
     },
   },
 }

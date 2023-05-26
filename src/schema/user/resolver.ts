@@ -16,10 +16,10 @@ export const resolvers: UserModule.Resolvers = {
     },
   },
   User: {
-    id: (parent) => parent.id,
-    name: (parent) => parent.name,
-    email: (parent) => parent.email,
-    posts: (parent) => {
+    id: parent => parent.id,
+    name: parent => parent.name,
+    email: parent => parent.email,
+    posts: parent => {
       return prisma.user.findUniqueOrThrow({ where: { id: parent.id } }).posts()
     },
   },
